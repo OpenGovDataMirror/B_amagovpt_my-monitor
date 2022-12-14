@@ -1,0 +1,17 @@
+.chart {
+  height: 50vh;
+  overflow: hidden;
+}
+
+table {
+  width: 100%;
+}
+
+th {
+  text-align: left;
+  font-weight: bold;
+}
+
+th, td {
+  padding: 0.5em;
+}

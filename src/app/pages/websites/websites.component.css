@@ -1,0 +1,18 @@
+.table-filter,
+.table-filter mat-form-field,
+.table-filter input {
+  width: 100%;
+}
+
+span {
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}

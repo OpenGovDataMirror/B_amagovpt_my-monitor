@@ -1,0 +1,12 @@
+:host {
+  width: 100%;
+}
+
+::ng-deep .reading-block {
+  line-height: 40px;
+}
+
+.mat-green{
+  background-color: darkolivegreen;
+  color: white;
+}

@@ -1,0 +1,109 @@
+<mat-card class="mat-typography">
+  <mat-card-header>
+    <mat-card-title>
+      <h1>{{ "PAGES.title" | translate }}</h1>
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <div class="page-table-header">
+      <mat-form-field appearance="outline">
+        <label for="pages_filter">{{ "PAGES.table.filter" | translate}}</label>
+        <input id="pages_filter" matInput (keyup)="applyFilter($event.target.value)">
+      </mat-form-field>
+    </div>
+
+    <div>
+      <button mat-flat-button color="warn" (click)="deletePages()" [disabled]="selection.selected.length === 0">
+        {{ "PAGES.remove_button" | translate }}
+      </button>
+      <span fxFlex></span>
+  
+      <button mat-flat-button color="primary" (click)="reEvaluate()">
+        {{ "PAGES.re_evaluate" | translate }}
+      </button>
+    </div>
+
+    <mat-table #table [dataSource]="dataSource" matSort matSortActive="Score" matSortDisableClear matSortDirection="desc">
+
+      <ng-container matColumnDef="select">
+        <mat-header-cell *matHeaderCellDef fxFlex="10">
+          <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()"
+            [indeterminate]="selection.hasValue() && !isAllSelected()">
+          </mat-checkbox>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row" fxFlex="10">
+          <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null" [checked]="selection.isSelected(row)">
+          </mat-checkbox>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="Uri">
+        <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex>
+          {{ "PAGES.table.page" | translate }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element" fxFlex>
+          <a [routerLink]="getUriRoute(element.Uri)"><strong>{{element.Uri}}</strong></a>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="Score">
+        <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="10" fxHide.lt-sm>
+          {{ "PAGES.table.score" | translate }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element" fxFlex="10" fxHide.lt-sm>
+          {{element.Score | toFixed }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="A">
+        <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="7" fxHide.lt-md>
+          {{ "PAGES.table.A" | translate }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element" fxFlex="7" fxHide.lt-md>
+          {{element.A}}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="AA">
+        <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="7" fxHide.lt-md>
+          {{ "PAGES.table.AA" | translate }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element" fxFlex="7" fxHide.lt-md>
+          {{element.AA}}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="AAA">
+        <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="7" fxHide.lt-md>
+          {{ "PAGES.table.AAA" | translate }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element" fxFlex="7" fxHide.lt-md>
+          {{element.AAA}}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="Evaluation_Date">
+        <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="10" fxHide.lt-md>
+          {{ "PAGES.table.date" | translate }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element" fxFlex="10" fxHide.lt-md>
+          {{element.Evaluation_Date | date}}
+        </mat-cell>
+      </ng-container>
+
+      <!--<ng-container matColumnDef="See">
+        <mat-header-cell *matHeaderCellDef fxFlex="10"></mat-header-cell>
+        <mat-cell *matCellDef="let element" fxFlex="10">
+          <button mat-icon-button matTooltip="{{ 'PAGES.table.see_tooltip' | translate }}" [routerLink]="getUriRoute(element.Uri)" attr.aria-label="{{ 'PAGES.table.see_tooltip' | translate }}"fxFlex>
+            <mat-icon class="md-24" aria-label="">visibility</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>-->
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+    <mat-paginator [pageSizeOptions]="[20, 50, 100, 250, 500]" showFirstLastButtons></mat-paginator>
+    <small><strong>{{ "PAGES.table.note" | translate }}</strong></small>
+  </mat-card-content>
+</mat-card>

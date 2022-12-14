@@ -1,0 +1,16 @@
+.page-table-header {
+  min-height: 1em;
+  padding: 8px 24px 0;
+}
+
+.mat-form-field {
+  width: 100%;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}

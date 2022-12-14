@@ -1,0 +1,50 @@
+<main id="main" fxLayout="row" fxLayoutAlign="center center">
+  <section fxLayout="row" fxLayoutAlign="center center" fxFlex.lt-md="95" fxFlex.md="60" fxFlex.lg="50" fxFlex.gt-lg="30">
+    <div class="content" fxLayout="column" fxLayoutAlign="start center">
+      <img class="small-logo" src="assets/images/logo.png" alt="Unidade ACESSO da FCT" fxHide.lt-md>
+      <br>
+      <mat-card class="mat-typography" fxLayout="column" fxLayoutAlign="start center">
+        <mat-card-header>
+          <mat-card-title>
+            <h1>{{ "LOGIN.title" | translate }}</h1>
+          </mat-card-title>
+        </mat-card-header>
+        <mat-divider [inset]="true"></mat-divider>
+        <form name="login_form" [formGroup]="loginForm" (submit)="login()" fxLayout="column" novalidate>
+          <mat-card-content fxLayout="column">
+            <br>
+            <mat-form-field>
+              <label for="login_username">
+                {{ "LOGIN.username_label" | translate }}
+              </label>
+              <input id="login_username" matInput type="text" formControlName="username" #usernameEle required>
+              <mat-error *ngIf="loginForm.controls.username.hasError('required')" [innerHTML]="'MISC.required_field' | translate">
+              </mat-error>
+            </mat-form-field>
+            <br>
+            <mat-form-field>
+              <label for="login_password">{{ "LOGIN.password_label" | translate }}</label>
+              <input id="login_password" matInput [type]="hide ? 'password' : 'text'" formControlName="password"
+                required>
+              <button mat-icon-button matSuffix type="button" (click)="hide = !hide">
+                <mat-icon *ngIf="hide" aria-hidden="false" attr.aria-label="{{ 'LOGIN.hide_password' | translate }}">visibility</mat-icon>
+                <mat-icon *ngIf="!hide" aria-hidden="false" attr.aria-label="{{ 'LOGIN.show_password' | translate }}">visibility_off</mat-icon>
+              </button>
+              <mat-error *ngIf="loginForm.controls.password.hasError('required')" [innerHTML]="'MISC.required_field' | translate">
+              </mat-error>
+            </mat-form-field>
+          </mat-card-content>
+          <mat-card-actions fxLayout="row" fxLayoutAlign="center center">
+            <button mat-raised-button color="primary" type="submit" [disabled]="loginForm.controls.username.invalid || loginForm.controls.password.invalid"
+              *ngIf="!loginLoading">
+              {{ "LOGIN.submit" | translate }}
+            </button>
+            <div *ngIf="loginLoading">
+              <span><strong>{{ "MISC.loading" | translate }}</strong></span>
+            </div>
+          </mat-card-actions>
+        </form>
+      </mat-card>
+    </div>
+  </section>
+</main>
